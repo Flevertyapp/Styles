@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Styles</string>
+    <string name="loginName">login</string>
+    <string name="password">password</string>
+    <string name="cancel">отмена</string>
+    <string name="ok">ОК</string>
+    <string name="my_ugly_style">My ugly style</string>
+    <string name="material_light">Material light</string>
+    <string name="material_light_action_bar_dark">Material light action bar dark</string>
+    <string name="material_dark">Material dark</string>
+
 </resources>
