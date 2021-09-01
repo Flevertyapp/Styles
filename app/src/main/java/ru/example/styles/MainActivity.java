@@ -2,13 +2,17 @@ package ru.example.styles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioGroup;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.radiobutton.MaterialRadioButton;
 
-    //имя настроек
+public class MainActivity extends BaseActivity {
+
+/*    //имя настроек
     private static final String NameSharedPreference = "LOGIN";
 
     //имя параметра в настройках
@@ -17,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private static final int MyUglyCodeStyle = 0;
     private static final int AppThemeLightCodeStyle = 1;
     private static final int AppThemeCodeStyle = 2;
-    private static final int AppThemeDarkCodeStyle = 3;
+    private static final int AppThemeDarkCodeStyle = 3;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //тема ставится до макета активити
-        setTheme(getAppTheme(R.style.MyUglyStyle));
+        /*setTheme(getAppTheme(R.style.MyUglyStyle));*/
         setContentView(R.layout.activity_main);
 
         initThemeChooser();
@@ -34,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         initRadioButton(findViewById(R.id.radioButtonMaterialDark), AppThemeDarkCodeStyle);
         initRadioButton(findViewById(R.id.radioButtonMaterialLight), AppThemeLightCodeStyle);
         initRadioButton(findViewById(R.id.radioButtonMaterialLightDarkAction), AppThemeCodeStyle);
+
+        RadioGroup rg = findViewById(R.id.radioButtons);
+        ((MaterialRadioButton)rg.getChildAt(getCodeStyle(MyUglyCodeStyle))).setChecked(true);
     }
 
     //метод для инициализации кнопки передаем кнопку и инт темы
@@ -48,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private int getAppTheme(int codeStyle) {
+   /* private int getAppTheme(int codeStyle) {
         return codeStyleToStyleId(getCodeStyle(codeStyle));
-    }
+    }*/
 
-    //метод возвращает айди темы по входящему инту
+    /*//метод возвращает айди темы по входящему инту
     private int codeStyleToStyleId(int codeStyle) {
         switch (codeStyle) {
             case AppThemeCodeStyle:
@@ -80,5 +87,5 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(AppTheme, codeStyle);
         editor.apply();
-    }
+    }*/
 }
