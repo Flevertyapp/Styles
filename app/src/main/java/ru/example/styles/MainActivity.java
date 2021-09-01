@@ -7,21 +7,28 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.regex.Pattern;
 
 public class MainActivity extends BaseActivity {
 
-/*    //имя настроек
-    private static final String NameSharedPreference = "LOGIN";
+    /*    //имя настроек
+        private static final String NameSharedPreference = "LOGIN";
 
-    //имя параметра в настройках
-    private static final String AppTheme = "APP_THEME";
+        //имя параметра в настройках
+        private static final String AppTheme = "APP_THEME";
 
-    private static final int MyUglyCodeStyle = 0;
-    private static final int AppThemeLightCodeStyle = 1;
-    private static final int AppThemeCodeStyle = 2;
-    private static final int AppThemeDarkCodeStyle = 3;*/
+        private static final int MyUglyCodeStyle = 0;
+        private static final int AppThemeLightCodeStyle = 1;
+        private static final int AppThemeCodeStyle = 2;
+        private static final int AppThemeDarkCodeStyle = 3;*/
+    Pattern checkLogin = Pattern.compile("^[A-Z][a-z]{2,}$"); //Первая буква большая латинская, остальные маленькие латинские
+    Pattern checkPassword = Pattern.compile("^(?=^.{6,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$"); //, минимум 6 символов, обязательны маленькая буква, большая буква, цифра
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,43 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         initThemeChooser();
+        initText();
+    }
+
+    private void initText() {
+        TextInputEditText login = findViewById(R.id.inputLoginName);
+        TextInputEditText password = findViewById(R.id.inputPassword);
+        final TextInputLayout layoutLogin = findViewById(R.id.loginName);
+        final TextInputLayout layoutPassword = findViewById(R.id.password);
+
+        //проверка при потете фокуса
+        login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) return;
+                TextView tv = (TextView) v;
+                String value = tv.getText().toString();
+                if (checkLogin.matcher(value).matches()) {  //проверка по регулярке
+                    tv.setError(null);
+                } else {
+                    tv.setError(getString(R.string.not_name));
+                }
+            }
+        });
+
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) return;
+                TextView tv = (TextView) v;
+                String value = tv.getText().toString();
+                if (checkPassword.matcher(value).matches()) {
+                    layoutPassword.setError(null);
+                } else {
+                    layoutPassword.setError(getString(R.string.weak_password));
+                }
+            }
+        });
     }
 
     private void initThemeChooser() { //инициализация кнопок для выбора тем
@@ -40,7 +84,7 @@ public class MainActivity extends BaseActivity {
         initRadioButton(findViewById(R.id.radioButtonMaterialLightDarkAction), AppThemeCodeStyle);
 
         RadioGroup rg = findViewById(R.id.radioButtons);
-        ((MaterialRadioButton)rg.getChildAt(getCodeStyle(MyUglyCodeStyle))).setChecked(true);
+        ((MaterialRadioButton) rg.getChildAt(getCodeStyle(MyUglyCodeStyle))).setChecked(true);
     }
 
     //метод для инициализации кнопки передаем кнопку и инт темы

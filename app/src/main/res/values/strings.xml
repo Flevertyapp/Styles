@@ -8,5 +8,7 @@
     <string name="material_light">Material light</string>
     <string name="material_light_action_bar_dark">Material light action bar dark</string>
     <string name="material_dark">Material dark</string>
+    <string name="not_name">It is not a name</string>
+    <string name="weak_password">incorrect password</string>
 
 </resources>
