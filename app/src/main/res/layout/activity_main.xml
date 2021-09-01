@@ -61,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonCancel">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioButtonMyCoolStyle"
+            android:id="@+id/radioButtonMyUglyStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/my_ugly_style" />
